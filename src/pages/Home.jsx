@@ -6,12 +6,15 @@ function Home() {
   const [loading, setLoading] = useState(true)
   const [restaurantsData, setRestaurantsData] = useState([])
   const [isError, setIsError] = useState(false)
+  const [isChecked, setIsChecked] = useState(false)
+  const [filteredRestaurantsData, setFilteredRestaurantsData] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState("null");
 
   useEffect(() => {
     setRestaurantsData([])
+    setFilteredRestaurantsData([])
     axios.get('https://restaurant-api.dicoding.dev/list')
       .then(function (responseAllRestaurant) {
-        console.log(responseAllRestaurant)
         for (let index = 0; index < responseAllRestaurant.data.restaurants.length; index++) {
           if (index % 3 != 0) {
             responseAllRestaurant.data.restaurants[index].open_time = new Date().setHours(8, 0, 0)
@@ -34,6 +37,7 @@ function Home() {
             }
           }
           setRestaurantsData(prevData => [...prevData, responseAllRestaurant.data.restaurants[index]])
+          setFilteredRestaurantsData(prevData => [...prevData, responseAllRestaurant.data.restaurants[index]])
         }
       })
       .catch(function (error) {
@@ -42,16 +46,57 @@ function Home() {
       })
       .finally(function () {
         setLoading(false)
-        console.log(restaurantsData)
       });
   }, [])
+
+
+  useEffect(() => {
+    setLoading(true)
+    if (isChecked) {
+      const currentTime = Date.now()
+      const temptOne = restaurantsData.filter((item) => {
+        if (currentTime >= item.open_time && currentTime < item.closed_time) {
+          return item
+        }
+      })
+      console.log(temptOne)
+      setFilteredRestaurantsData(temptOne)
+    }
+    else if (isChecked === false) {
+      setFilteredRestaurantsData(restaurantsData)
+    }
+    setLoading(false)
+  }, [isChecked])
+
+  function filteredPrice(paramPrice) {
+    const temptOne = paramPrice.split(",")
+    const temptTwo = restaurantsData.filter((item) => {
+      if (item.price >= parseInt(temptOne[0]) && item.price <= parseInt(temptOne[1])) {
+        return item
+      }
+    })
+    setFilteredRestaurantsData(temptTwo)
+  }
+
+  function filteredCategory(paramCategory) {
+    setLoading(true)
+    axios.get('https://restaurant-api.dicoding.dev/search?q=' + paramCategory)
+      .then((response) => {
+        // console.log(response.data)
+        setFilteredRestaurantsData(response.data.restaurants)
+      }).catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
 
 
 
   if (loading) {
     return (
       <div className='w-full min-h-screen bg-slate-400'>
-        {/* <Card restaurantData={{ city: 'medan' }} /> */}
       </div>
     )
   }
@@ -67,30 +112,50 @@ function Home() {
         <div className="flex flex-wrap gap-6 text-sm">
           <div className="text-brand-grey font-semibold">Filter By:</div>
           <div className="flex items-center gap-1 border-b-[1.3px] pb-[8px] border-brand-grey/40 w-fit">
-            <input type="radio" name="openNow" id="openNow" />
-            <label htmlFor="openNow" className="text-brand-blue text-sm ">Open Now</label>
+            <input type="checkbox" className="border border-gray-400 rounded-full w-3 h-3 appearance-none checked:bg-brand-blue cursor-pointer" name="openNow" id="openNow" onClick={(e) => {
+              if (e.target.checked) {
+                setIsChecked(true)
+              }
+              else {
+                setIsChecked(false)
+              }
+            }} />
+            <label htmlFor="openNow" className="text-brand-blue text-sm cursor-pointer" onClick={() => {
+              setIsChecked(true)
+            }} >Open Now</label>
           </div>
           <div className="border-b-[1.3px] pb-[8px] border-brand-grey/40 text-brand-blue">
-            <select className="text-brand-blue" name="" id="">
+            <select className="text-brand-blue" name="" id="" onChange={(e) => {
+              filteredPrice(e.target.value)
+            }}>
               <option className="text-brand-blue" value="null">Price</option>
-              <option className="text-brand-blue" value="">Kurang dari Rp. 15.000</option>
-              <option className="text-brand-blue" value="">Kurang dari Rp. 30.000</option>
-              <option className="text-brand-blue" value="">Kurang dari Rp. 60.000</option>
-              <option className="text-brand-blue" value="">Kurang dari Rp. 100.000</option>
+              <option className="text-brand-blue" value="1000,30000">Rp. 1.000 s.d 30.000 </option>
+              <option className="text-brand-blue" value="31000,60000">Rp. 31.000 s.d 60.000 </option>
+              <option className="text-brand-blue" value="61000,100000">Rp. 61.000 s.d 100.000 </option>
+              <option className="text-brand-blue" value="11000">Lebih dari Rp. 100.000 </option>
             </select>
           </div>
           <div className="border-b-[1.3px] pb-[8px] border-brand-grey/40 text-brand-blue">
-            <select className="text-brand-blue" name="" id="">
+            <select className="text-brand-blue" name="category" id="category" value={selectedCategory} onChange={(e) => {
+              setSelectedCategory(e.target.value)
+              filteredCategory(e.target.value)
+            }}>
               <option className="text-brand-blue" value="null">Categories</option>
-              <option className="text-brand-blue" value="">Kurang dari Rp. 15.000</option>
-              <option className="text-brand-blue" value="">Kurang dari Rp. 30.000</option>
-              <option className="text-brand-blue" value="">Kurang dari Rp. 60.000</option>
-              <option className="text-brand-blue" value="">Kurang dari Rp. 100.000</option>
+              <option className="text-brand-blue" value="Italia">Italia</option>
+              <option className="text-brand-blue" value="Modern">Modern</option>
+              <option className="text-brand-blue" value="Sop">Sop</option>
+              <option className="text-brand-blue" value="Bali">Bali</option>
+              <option className="text-brand-blue" value="Jawa">Jawa</option>
+              <option className="text-brand-blue" value="Spanyol">Spanyol</option>
+              <option className="text-brand-blue" value="Sunda">Sunda</option>
+              <option className="text-brand-blue" value="Sunda">Sunda</option>
             </select>
           </div>
         </div>
 
-        <div className="border px-8 py-2 border-brand-grey/60 text-brand-grey/60 text-[10px] cursor-pointer hover:text-brand-grey hover:bg-brand-grey/20 transition-all text-center lg:mt-0 mt-6">
+        <div className="border px-8 py-2 border-brand-grey/60 text-brand-grey/60 text-[10px] cursor-pointer hover:text-brand-grey hover:bg-brand-grey/20 transition-all text-center lg:mt-0 mt-6" onClick={() => {
+          setFilteredRestaurantsData(restaurantsData)
+        }}>
           CLEAR ALL
         </div>
       </nav>
@@ -99,7 +164,7 @@ function Home() {
       <h2 className="text-4xl font-light mb-12 px-12">All Restaurant</h2>
 
       <div className="md:grid md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-24 mt-6 lg:px-12 pb-12">
-        {restaurantsData.map((item) => {
+        {filteredRestaurantsData.map((item) => {
           return <Card restaurantData={item} key={item.id} />
         })}
       </div>
