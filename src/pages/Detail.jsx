@@ -33,15 +33,15 @@ function Detail() {
   }
 
   return (
-    <div className="flex items-start gap-10 w-full p-12 relative">
-      <div className="w-[50vw] sticky z-[10] top-10 left-0">
-        <h1 className="text-5xl text-brand-blue font-semibold flex items-center gap-2">
+    <div className="lg:flex items-start gap-10 w-full lg:p-12 p-4 lg:relative">
+      <div className="lg:w-[50vw] lg:sticky z-[10] top-10 left-0">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl text-brand-blue font-semibold flex items-center gap-2">
           <Link to='/' className="block hover:p-2 hover:bg-brand-blue/10 transition-all rounded-full">
             <IconArrowNarrowLeft />
           </Link>
           {restaurantData.name}
         </h1>
-        <div className="flex items-center mt-10 gap-5">
+        <div className="flex flex-wrap items-center mt-10 gap-5">
           <div className="mt-4 flex items-center gap-2">
             <IconStarFilled size={20} className='text-brand-blue' stroke={0} />
             <div className="font-semibold text-xl">{restaurantData.rating}</div>
