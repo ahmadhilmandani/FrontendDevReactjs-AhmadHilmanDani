@@ -1,8 +1,14 @@
-# React + Vite
+# FRONTEND DEV REACT JS - TECHNICAL TEST SEKAWAN
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## HOW TO RUN THE PROJECT
+1. Buka terminal
+2. copy lalu paste kode ini ke terminal `git clone https://github.com/ahmadhilmandani/FrontendDevReactjs-AhmadHilmanDani.git` lalu tekan enter 
+3. copy lalu paste kode ini ke terminal `cd FrontendDevReactjs-AhmadHilmanDani.git` lalu tekan enter
+4. copy lalu paste kode ini ke terminal `npm install` lalu tekan enter
+5. copy lalu paste kode ini ke terminal `npm run dev` lalu tekan enter
+6. lalu tekan di browser kesayngan anda http://localhost:5173/
+7. Selesai
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+   
+## VERSI NODE JS
+v18.17.1
