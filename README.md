@@ -12,6 +12,8 @@ https://technical-test-reactjs-sekawan.netlify.app/
 6. lalu tekan di browser kesayngan anda http://localhost:5173/
 7. Selesai
 
-   
+## VERSI REACT
+18
+
 ## VERSI NODE JS
 v18.17.1
