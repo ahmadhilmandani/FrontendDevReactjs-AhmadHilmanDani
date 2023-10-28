@@ -1,6 +1,9 @@
 # FRONTEND DEV REACT JS - TECHNICAL TEST SEKAWAN
 
-## HOW TO RUN THE PROJECT
+## DEPLOYED VERSION WEB
+https://technical-test-reactjs-sekawan.netlify.app/
+
+## HOW TO RUN THE PROJECT ON OUR LOCAL MACHINE
 1. Buka terminal
 2. copy lalu paste kode ini ke terminal `git clone https://github.com/ahmadhilmandani/FrontendDevReactjs-AhmadHilmanDani.git` lalu tekan enter 
 3. copy lalu paste kode ini ke terminal `cd FrontendDevReactjs-AhmadHilmanDani.git` lalu tekan enter
