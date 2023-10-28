@@ -57,13 +57,13 @@ function Home() {
   }
 
   return (
-    <div className="bg-white w-full">
+    <div className="bg-white w-full relative">
       <header className="px-12 pt-12">
         <h1 className="text-6xl font-light text-brand-dark">Restaurant</h1>
         <p className="mt-4 text-xl w-[50vw] text-brand-grey font-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit, sed do eiusmod tempor ut  incididunt labore et dolore magna aliqua.</p>
       </header>
 
-      <nav className="border-y border-brand-grey/40 mt-12 mb-16 py-5 px-12 flex justify-between sticky z-10 bg-white">
+      <nav className="border-y border-brand-grey/40 mt-12 mb-16 py-5 px-12 flex justify-between sticky z-10 bg-white top-0 left-0">
         <div className="flex gap-6 text-sm">
           <div className="text-brand-grey font-semibold">Filter By:</div>
           <div className="flex items-center gap-1 border-b-[1.3px] pb-[8px] border-brand-grey/40">
@@ -90,7 +90,7 @@ function Home() {
           </div>
         </div>
 
-        <div className="border px-8 py-2 border-brand-grey/60 text-brand-grey/60 text-[10px]">
+        <div className="border px-8 py-2 border-brand-grey/60 text-brand-grey/60 text-[10px] cursor-pointer hover:text-brand-grey hover:bg-brand-grey/20 transition-all ">
           CLEAR ALL
         </div>
       </nav>

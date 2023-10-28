@@ -36,7 +36,7 @@ function Detail() {
     <div className="flex items-start gap-10 w-full p-12 relative">
       <div className="w-[50vw] sticky z-[10] top-10 left-0">
         <h1 className="text-5xl text-brand-blue font-semibold flex items-center gap-2">
-          <Link to='/'>
+          <Link to='/' className="block hover:p-2 hover:bg-brand-blue/10 transition-all rounded-full">
             <IconArrowNarrowLeft />
           </Link>
           {restaurantData.name}

@@ -61,7 +61,7 @@ function Card({ restaurantData }) {
           }
         </div>
       </div>
-      <Link to={'/' + restaurantData.id + '/' + restaurantData.price + '/' + restaurantData.open_time + '/' + restaurantData.closed_time} className="block bg-brand-blue text-center w-full uppercase text-white py-3 text-xs tracking-wider absolute bottom-0 cursor-pointer">
+      <Link to={'/' + restaurantData.id + '/' + restaurantData.price + '/' + restaurantData.open_time + '/' + restaurantData.closed_time} className="block bg-brand-blue text-center w-full uppercase text-white py-3 text-xs tracking-wider absolute bottom-0 cursor-pointer hover:bg-brand-blue/90 transition-all">
         learn more
       </Link>
     </div>
